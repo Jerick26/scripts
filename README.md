@@ -1,5 +1,5 @@
 # utilities_scripts_command
-##do_patch.sh
+##1. do_patch.sh
 ###description
 a shell scription to patch batched where it is unavailable to use normal method patch, git patch.
 ###usage
