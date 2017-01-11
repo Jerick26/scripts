@@ -1,4 +1,9 @@
 
+2017.1.11
+set Linux Terminal command color and format:
+edit ~/.bashrc
+PS1='\[\033[1;32;1m\]\u:\W \t$\[\033[1;37;1m\] '
+
 2017.1.10
 ack
 ack image_tag --ignore-file=ext:out --ignore-dir=build64_debug
