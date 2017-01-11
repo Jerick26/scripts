@@ -1,11 +1,39 @@
 
+2017.1.11
+# use git to update other branch
+## sync latest code and create local branch to remote rb branch
+git fetch
+git branch -a
+git checkout -b local_170111 remotes/origin/rb-xxx
+## sync submodule dependence
+git submodule init
+git submodule sync
+git submodule update --init --recursive
+## sync latest code of remote rb branch
+git fetch origin
+## cherry pick from master branch
+git cherry-pick md5_commit_id
+git diff remotes/origin/rb-xxx
+## if submodule changed, commit it
+cd submodule_dir
+git branch
+git checkout master  # if not on master
+git pull
+cd ..
+git diff
+git add submodule_dir
+git status -s
+git commit -m"......"
+git log  # check all main module and sub module have been commit
+## push to remote
+git push origin local_170111:rb-143
+
 2017.1.5
 apply patch
 diff -u sa/query_server.ini ~/9-test/query_server.ini > ini.patch
 vi ini.patch   # modify the query.ini path in init.patch
 ll s? [tab tab]# get array: sa/ sc/ sd/ se/ sf/ sg/ sh/ si/ sx/
 ./do_patch.sh ini.patch sa/ sc/ sd/ se/ sf/ sg/ sh/ si/ sx/
-
 
 2017.1.4
 .gitignore
