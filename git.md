@@ -1,6 +1,6 @@
 
 2017.1.11
-# use git to update other branch
+# use git to update nonmaster branch
 ## sync latest code and create local branch to remote rb branch
 git fetch
 git branch -a
@@ -41,6 +41,8 @@ ll s? [tab tab]# get array: sa/ sc/ sd/ se/ sf/ sg/ sh/ si/ sx/
 
 2017.1.3
 git blame, Show what revision and author last modified each line of a file
+git blame filename
+git blame <commit>^ -- filename | head -3 | tail -2
 
 ads common, rerieval have not rb branch
 only ads_server have rb branch
