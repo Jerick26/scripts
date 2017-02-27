@@ -1,0 +1,6 @@
+" disable auto enter visual mode when using mouse select text
+set mouse=r
+" set colorscheme
+colorscheme molokai
+" disable spell check
+autocmd VimEnter * set nospell
