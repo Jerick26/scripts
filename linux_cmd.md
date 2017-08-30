@@ -1,31 +1,33 @@
+* [Terminal color and format](#set-Linux-Terminal-command-color-and-format)
+* [ack](#ack)
+* [grep](#grep)
+* [find files according to time](#find-files-according-to-time)
+* [convert time stamp to date and inverse](#convert-time-stamp-to-date-and-inverse)
+* [cscope and ctags](#cscope-and-ctags)
 
-2017.1.11
-set Linux Terminal command color and format:
+
+## set Linux Terminal command color and format:
 edit ~/.bashrc
 PS1='\[\033[1;32;1m\]\u:\W \t$\[\033[1;37;1m\] '
 
-2017.1.10
-ack
+## ack
 ack image_tag --ignore-file=ext:out --ignore-dir=build64_debug
 ack image_tag --ignore-file='match:/tags|cscope.*/' --ignore-dir=build64_release
 
-grep
+## grep
 grep -C 3 "match_pattern" file_name --color=auto
 
-2017.1.5
-find files according to time
+## find files according to time
 find . -type f -atime +7
 find . -type f -amin -10
 
-2017.1.4
-convert linux time stamp to date and inverse
+## convert time stamp to date and inverse
 date +%s
 date -d '2017-1-4 17:08' +%s
 date -d @1483520880
 date -d @1483520880 +"%Y-%m-%d %H:%M:%S"
 
-2016.12.28
-cscope, ctags
+## cscope and ctags
 find . -regex ".*\.\(h\|cpp\|cc\)" > cscope.files
 cscope -bkq -i cscope.files
 ctags -L cscope.files
