@@ -6,38 +6,40 @@
 * [cscope and ctags](#cscope-and-ctags)
 
 
-## set Linux Terminal command color and format:
-edit ~/.bashrc
-PS1='\[\033[1;32;1m\]\u:\W \t$\[\033[1;37;1m\] '
+## set Linux Terminal command color and format
+edit ~/.bashrc<br/>
+PS1='\[\033[1;32;1m\]\u:\W \t$\[\033[1;37;1m\] '<br/>
 
 ## ack
-ack image_tag --ignore-file=ext:out --ignore-dir=build64_debug
-ack image_tag --ignore-file='match:/tags|cscope.*/' --ignore-dir=build64_release
+`ack image_tag --ignore-file=ext:out --ignore-dir=build64_debug`
+`ack image_tag --ignore-file='match:/tags|cscope.*/' --ignore-dir=build64_release`
 
 ## grep
-grep -C 3 "match_pattern" file_name --color=auto
+`grep -C 3 "match_pattern" file_name --color=auto`
 
 ## find files according to time
-find . -type f -atime +7
-find . -type f -amin -10
+`find . -type f -atime +7`
+`find . -type f -amin -10`
 
 ## convert time stamp to date and inverse
-date +%s
-date -d '2017-1-4 17:08' +%s
-date -d @1483520880
-date -d @1483520880 +"%Y-%m-%d %H:%M:%S"
+`date +%s`
+`date -d '2017-1-4 17:08' +%s`
+`date -d @1483520880`
+`date -d @1483520880 +"%Y-%m-%d %H:%M:%S"`
 
 ## cscope and ctags
-find . -regex ".*\.\(h\|cpp\|cc\)" > cscope.files
-find -E . -regex '.*(h|hpp|cpp|cc)$' > cscope.files (in BSD)
-cscope -bkq -i cscope.files
-ctags -L cscope.files
-usage for ctag
-:tag {ident}    "jump to ident tag
-:tags    "show tag stack
-:ts    "show all tags found
-:tp    "show previous tag
-:tn    "show next tags
-shortcut
-Ctrl+t    "return the last place
-Ctrl+]    "jump to the tag place
+`find . -regex ".*\.\(h\|cpp\|cc\)" > cscope.files`
+`find -E . -regex '.*(h|hpp|cpp|cc)$' > cscope.files` (in BSD)
+`cscope -bkq -i cscope.files`
+`ctags -L cscope.files`
+usage for ctag<br>
+:tag {ident}    "jump to ident tag<br>
+:tags    "show tag stack<br>
+:ts    "show all tags found<br>
+:tp    "show previous tag<br>
+:tn    "show next tags<br>
+shortcut<br>
+Ctrl+t    "return the last place<br>
+Ctrl+]    "jump to the tag place<br>
+
+
