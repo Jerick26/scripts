@@ -29,6 +29,7 @@ date -d @1483520880 +"%Y-%m-%d %H:%M:%S"
 
 ## cscope and ctags
 find . -regex ".*\.\(h\|cpp\|cc\)" > cscope.files
+find . 
 cscope -bkq -i cscope.files
 ctags -L cscope.files
 usage for ctag
