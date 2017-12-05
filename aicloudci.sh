@@ -24,8 +24,8 @@ function get_branch {
   fi
 }
 
-if [ $# -lt 3 ]; then
-  echo "usage: binary dev|test|online project branch [commit]"
+if [ $# -ne 5 ]; then
+  echo "usage: binary dev|test|online project branch commit verNo"
   exit 1
 fi
 echo "command: $0 $@"
@@ -34,6 +34,7 @@ env=$1
 proj=$2
 branch=$3
 commit=$4
+verNo=$5
 if [[ $env != dev ]] && [[ $env != test ]] && [[ $env != online ]]; then
   echo "wrong environment set, expect to be dev, test, online"
   exit 1
@@ -49,6 +50,7 @@ fi
 
 cd $proj_dir
 
+# update source code
 git reset --hard HEAD
 git checkout master
 git fetch origin 
@@ -61,13 +63,13 @@ if [ $ret -ne 0 ] && [ $ret -ne 128 ]; then
 fi
 git checkout build_$branch 2> /dev/null
 git merge origin/$branch
-
+# check branch valid
 BR=$(get_branch)
 if [[ $BR != build_$branch ]]; then
   echo "undefined branch for $branch"
   exit 1
 fi
-
+# update commit
 if [[ $commit != "" ]] && [ $commit != '0' ]; then
   git checkout $commit 2> /dev/null
   if [ $? -ne 0 ]; then
@@ -78,7 +80,15 @@ if [[ $commit != "" ]] && [ $commit != '0' ]; then
 else
   echo "checkout to HEAD"
 fi
-
+# build project
+echo "start to build $proj ..."
+#/home/jenkins/local/go/bin/go build -a
+if [ $? -ne 0 ]; then
+  echo "build error"
+  exit 1
+fi
+echo "success to build $proj"
+# set environment conf
 echo "set environment to $env"
 cd conf
 if [ ! -f .$env.app.json ]; then
@@ -88,21 +98,20 @@ fi
 ln -sf .$env.app.json app.json
 cd ..
 
-echo "start to build $proj ..."
-go build -a
-if [ $? -ne 0 ]; then
-  echo "build error"
-  exit 1
-fi
-echo "success to build $proj"
-
-echo "start to archive $proj.$branch.tar.gz"
-outfile=$output/$proj.$branch.tar.gz
-mkdir log 2> /dev/null
+target=$proj.$branch.$verNo.tar.gz
+echo "start to archive $target"
+outfile=$output/$target
+# write version
+echo $target > version 
+md5sum $proj >> version 
+md5sum conf/.$env.app.json >> version
+# set log and supervise control script
+ln -sf /roobo/logs/$proj log
 cp $tool_dir/{control.func,control.inc,"$proj"_control,supervise.$proj} .
-tar zcf $outfile $proj conf log control.func control.inc "$proj"_control supervise.$proj
+# tar packet
+tar zcf $outfile $proj conf version log control.func control.inc "$proj"_control supervise.$proj
 rm control.func control.inc "$proj"_control supervise.$proj
-
+# end
 echo -n "$outfile"
 echo
 exit 0
