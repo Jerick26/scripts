@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+#set -x
 
 function is_git_dir {
   git rev-parse --is-inside-work-tree &> /dev/null
@@ -28,6 +28,7 @@ if [ $# -lt 2 ]; then
   echo "usage: binary project branch [commit]"
   exit 1
 fi
+echo "command: $0 $@"
 
 proj=$1
 branch=$2
@@ -59,24 +60,32 @@ if [[ $BR != build_$branch ]]; then
   exit 1
 fi
 
-if [[ $commit != "" ]]; then
+if [[ $commit != "" ]] && [ $commit != '0' ]; then
   git checkout $commit 2> /dev/null
   if [ $? -ne 0 ]; then
     echo "failed to checkout commit: $commit"
     exit 1
   fi
+  echo "checkout to commit: $commit"
+else
+  echo "checkout to HEAD"
 fi
 
+echo "start to build $proj ..."
 go build -a
 if [ $? -ne 0 ]; then
   echo "build error"
   exit 1
 fi
+echo "success to build $proj"
 
+echo "start to archive $proj.$branch.tar.gz"
 outfile=$output/$proj.$branch.tar.gz
 mkdir log 2> /dev/null
 cp $tool_dir/{control.func,control.inc,"$proj"_control,supervise.$proj} .
 tar zcf $outfile $proj conf log control.func control.inc "$proj"_control supervise.$proj
 rm control.func control.inc "$proj"_control supervise.$proj
 
-echo -n $outfile
+echo -n "$outfile"
+echo
+exit 0
