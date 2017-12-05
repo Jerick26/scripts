@@ -24,15 +24,20 @@ function get_branch {
   fi
 }
 
-if [ $# -lt 2 ]; then
-  echo "usage: binary project branch [commit]"
+if [ $# -lt 3 ]; then
+  echo "usage: binary dev|test|online project branch [commit]"
   exit 1
 fi
 echo "command: $0 $@"
 
-proj=$1
-branch=$2
-commit=$3
+env=$1
+proj=$2
+branch=$3
+commit=$4
+if [[ $env != dev ]] && [[ $env != test ]] && [[ $env != online ]]; then
+  echo "wrong environment set, expect to be dev, test, online"
+  exit 1
+fi
 proj_dir=$HOME/go/src/roobo.com/$proj
 tool_dir=$HOME/tools/deploy
 output=/aicloud/output
@@ -44,8 +49,10 @@ fi
 
 cd $proj_dir
 
+git reset --hard HEAD
 git checkout master
 git fetch origin 
+git merge origin/master
 git branch build_$branch origin/$branch 2> /dev/null
 ret=$?
 if [ $ret -ne 0 ] && [ $ret -ne 128 ]; then
@@ -53,6 +60,7 @@ if [ $ret -ne 0 ] && [ $ret -ne 128 ]; then
   exit 1
 fi
 git checkout build_$branch 2> /dev/null
+git merge origin/$branch
 
 BR=$(get_branch)
 if [[ $BR != build_$branch ]]; then
@@ -70,6 +78,15 @@ if [[ $commit != "" ]] && [ $commit != '0' ]; then
 else
   echo "checkout to HEAD"
 fi
+
+echo "set environment to $env"
+cd conf
+if [ ! -f .$env.app.json ]; then
+  echo "fatal: env conf file: .$env.app.json not existed"
+  exit 1
+fi
+ln -sf .$env.app.json app.json
+cd ..
 
 echo "start to build $proj ..."
 go build -a
