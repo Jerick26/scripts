@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #set -x
-
 function is_git_dir {
   git rev-parse --is-inside-work-tree &> /dev/null
 }
@@ -81,36 +80,22 @@ else
   echo "checkout to HEAD"
 fi
 # build project
-echo "start to build $proj ..."
-#/home/jenkins/local/go/bin/go build -a
+sh AIMAKE $env
 if [ $? -ne 0 ]; then
-  echo "build error"
+  echo "AIMAKE $env failed!"
   exit 1
 fi
-echo "success to build $proj"
-# set environment conf
-echo "set environment to $env"
-cd conf
-if [ ! -f .$env.app.json ]; then
-  echo "fatal: env conf file: .$env.app.json not existed"
-  exit 1
-fi
-ln -sf .$env.app.json app.json
-cd ..
-
+# make tar package
 target=$proj.$branch.$verNo.tar.gz
-echo "start to archive $target"
 outfile=$output/$target
+echo "start to archive $target"
+cd "$env"_stagging
 # write version
-echo $target > version 
-md5sum $proj >> version 
-md5sum conf/.$env.app.json >> version
-# set log and supervise control script
-ln -sf /roobo/logs/$proj log
-cp $tool_dir/{control.func,control.inc,"$proj"_control,supervise.$proj} .
+echo $target > version.txt 
+md5sum $proj >> version.txt 
+md5sum conf/* >> version.txt
 # tar packet
-tar zcf $outfile $proj conf version log control.func control.inc "$proj"_control supervise.$proj
-rm control.func control.inc "$proj"_control supervise.$proj
+tar zcf $outfile .
 # end
 echo -n "$outfile"
 echo
