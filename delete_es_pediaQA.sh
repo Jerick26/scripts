@@ -1,0 +1,23 @@
+#!/bin/bash
+
+ids=(
+#"e2b8744364c76764dc1a6a35c9b0ce44"
+#"c8f6368a1e1738ddf27685b26c728b78"
+#"e828096a1c2220ca4f6658c73f24357f"
+#"ff4a7bd596cf23214782974acc123292"
+#"acac6bee5753cb8b484e10ed74b80a8e"
+#"4756a376d87b62f9f153ae2bda39a1a2"
+#"ec1bc58529ee4e23418e3aef80c4abe4"
+#"1598ebd4f022110391f51a9a5ea7e739"
+#"1c1285c3b12ab173735164e4414b3691"
+#"721a23e8bb474aa78f3d8c9655074096"
+#"9aa0443ab093a850636dd8ebdd080a73"
+"1571e05a6f03adb40cc1df1467ba5470"
+)
+
+tag="人物"
+
+for id in ${ids[*]}; do
+  curl -XDELETE http://192.168.1.43:9200/baike_all_2/baike/$id
+  echo ""
+done
