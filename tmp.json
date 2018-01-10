@@ -2,28 +2,28 @@
   "columns" : [ "n" ],
   "data" : [ [ {
     "metadata" : {
-      "id" : 240,
+      "id" : 13910808,
       "labels" : [ "社会_组织机构_企业" ]
     },
     "data" : {
-      "老板" : "蒂姆·库克，1960年11月1日出生于美国阿拉巴马州，现任苹果公司首席执行官。",
-      "PV" : "7479368",
-      "name" : "苹果公司",
-      "id" : "26f6e8e19fd033684d673ba17dc23305"
+      "老板" : "埃里克·施密特，1955年出生，谷歌前CEO、著名电脑工程师，  现任阿尔法特公司（Google 母公司）董事长",
+      "PV" : "10205726",
+      "name" : "谷歌公司",
+      "id" : "099811281ab76ae277175fc4276582f8"
     },
-    "paged_traverse" : "http://localhost:7474/db/data/node/240/paged/traverse/{returnType}{?pageSize,leaseTime}",
-    "outgoing_relationships" : "http://localhost:7474/db/data/node/240/relationships/out",
-    "outgoing_typed_relationships" : "http://localhost:7474/db/data/node/240/relationships/out/{-list|&|types}",
-    "create_relationship" : "http://localhost:7474/db/data/node/240/relationships",
-    "labels" : "http://localhost:7474/db/data/node/240/labels",
-    "traverse" : "http://localhost:7474/db/data/node/240/traverse/{returnType}",
+    "paged_traverse" : "http://101.201.150.35:7474/db/data/node/13910808/paged/traverse/{returnType}{?pageSize,leaseTime}",
+    "outgoing_relationships" : "http://101.201.150.35:7474/db/data/node/13910808/relationships/out",
+    "outgoing_typed_relationships" : "http://101.201.150.35:7474/db/data/node/13910808/relationships/out/{-list|&|types}",
+    "create_relationship" : "http://101.201.150.35:7474/db/data/node/13910808/relationships",
+    "labels" : "http://101.201.150.35:7474/db/data/node/13910808/labels",
+    "traverse" : "http://101.201.150.35:7474/db/data/node/13910808/traverse/{returnType}",
     "extensions" : { },
-    "all_relationships" : "http://localhost:7474/db/data/node/240/relationships/all",
-    "all_typed_relationships" : "http://localhost:7474/db/data/node/240/relationships/all/{-list|&|types}",
-    "property" : "http://localhost:7474/db/data/node/240/properties/{key}",
-    "self" : "http://localhost:7474/db/data/node/240",
-    "incoming_relationships" : "http://localhost:7474/db/data/node/240/relationships/in",
-    "properties" : "http://localhost:7474/db/data/node/240/properties",
-    "incoming_typed_relationships" : "http://localhost:7474/db/data/node/240/relationships/in/{-list|&|types}"
+    "all_relationships" : "http://101.201.150.35:7474/db/data/node/13910808/relationships/all",
+    "all_typed_relationships" : "http://101.201.150.35:7474/db/data/node/13910808/relationships/all/{-list|&|types}",
+    "property" : "http://101.201.150.35:7474/db/data/node/13910808/properties/{key}",
+    "self" : "http://101.201.150.35:7474/db/data/node/13910808",
+    "incoming_relationships" : "http://101.201.150.35:7474/db/data/node/13910808/relationships/in",
+    "properties" : "http://101.201.150.35:7474/db/data/node/13910808/properties",
+    "incoming_typed_relationships" : "http://101.201.150.35:7474/db/data/node/13910808/relationships/in/{-list|&|types}"
   } ] ]
 }

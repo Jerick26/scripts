@@ -1,23 +1,22 @@
 #!/bin/bash
 
-neo4j_url="http://localhost:7474/db/data/cypher"
-#autho="bmVvNGo6bmVvNGo="
-label="社会_组织机构_企业"
+neo4j_url=
+label=
 echo "authorization:"
 read -s autho
 
 declare -a names=(
 "苹果公司"
-"Google"
-"亚马逊"
-"腾讯"
-"阿里巴巴集团"
-"百度"
-"美团网"
-"北京小米科技有限责任公司"
-"联想集团"
-"华为技术有限公司"
-"京东"
+"谷歌公司"
+#"亚马逊"
+#"腾讯"
+#"阿里巴巴集团"
+#"百度"
+#"美团网"
+#"北京小米科技有限责任公司"
+#"联想集团"
+#"华为技术有限公司"
+#"京东"
 )
 
 declare -a ids=(
@@ -63,9 +62,8 @@ declare -a values=(
 )
 
 for (( i=0; i<${#names[@]}; i++ )); do
-  echo "process name: ${names[$i]}"
+  echo "${names[$i]}"
   # check whether in databases
-  rm -f tmp.json
   curl -s -o tmp.json -X POST -H "Accept: application/json; charset=UTF-8" -H "Content-Type: application/json" -H "Authorization:'"$autho"'" $neo4j_url -d '{
     "query" : "match (n:`'$label'` {name: {name} }) return n",
     "params" : {
@@ -83,15 +81,16 @@ for (( i=0; i<${#names[@]}; i++ )); do
     "query" : "create (n:`'$label'` {props} ) return n",
     "params" : {
       "props" : {
-        "name":"'"${names[$i]}"'",
         "id": "'"${ids[$i]}"'",
+        "name":"'"${names[$i]}"'",
         "PV": "'"${pvs[$i]}"'",
         "老板" : "'"${values[$i]}"'"
       }
     }
   }'
-  grep "metadata" result.json > /dev/null
+  grep "errors" result.json > /dev/null
   if [ $? -eq 0 ]; then
-    echo "success to create node, name: ${names[$i]}"
+    echo "fail to create node, name: ${names[$i]}"
   fi
 done
+rm -f tmp.json result.json
