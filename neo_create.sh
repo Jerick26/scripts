@@ -1,7 +1,8 @@
 #!/bin/bash
 
-neo4j_url=
-label=
+neo4j_url="http://127.0.0.1:7474/db/data/cypher"
+#autho="bmVvNGo6bmVvNGo="
+label="社会_组织机构_企业"
 echo "authorization:"
 read -s autho
 
